@@ -1,16 +1,17 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import { riotAPI } from '../features/apis/riotAPI';
+import { riotMainAPI } from '../features/apis/riotMainAPI';
+import { lolAPI } from '../features/apis/lolApi'
 
 const rootReducer = combineReducers({
-  [riotAPI.reducerPath]: riotAPI.reducer
+  [riotMainAPI.reducerPath]: riotMainAPI.reducer,
+  [lolAPI.reducerPath]: lolAPI.reducer,
 })
 
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(riotAPI.middleware)
-    
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(riotMainAPI.middleware, lolAPI.middleware)
 })
 
 export const actions = {
