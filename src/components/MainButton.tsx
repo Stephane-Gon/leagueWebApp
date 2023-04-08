@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import theme from '../ui/theme'
 
 interface Props {
   text: string
@@ -16,9 +17,13 @@ export default MainButton
 
 const ButtonWrapper = styled.div`
   width: fit-content;
-  padding: 5px 50px;
+  position: relative;
+  padding: 5px 55px;
   cursor: pointer;
   align-self: end;
+  color: ${theme().blue1Color};
+  font-weight: 500;
+  font-style: bold;
   background-image: linear-gradient(
     60deg,
     hsl(198deg 100% 25%) 0%,
@@ -32,4 +37,43 @@ const ButtonWrapper = styled.div`
     hsl(179deg 100% 37%) 94%,
     hsl(175deg 90% 41%) 100%
   );
+  transition: all 0.5s ease;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    background: ${theme().blue7Color};
+    width: 20px;
+    aspect-ratio: 1;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    display: inline-block;
+    transform: rotate(-45deg);
+    transition: all 0.2s ease;
+  }
+
+  &:after {
+    content: '';
+    background: ${theme().blue7Color};
+    width: 20px;
+    aspect-ratio: 1;
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    display: inline-block;
+    transform: rotate(-45deg);
+    transition: all 0.2s ease;
+  }
+
+  &:hover {
+    &::after {
+      bottom: -20px;
+      right: -20px;
+    }
+    &::before {
+      top: -20px;
+      left: -20px;
+    }
+  }
 `
