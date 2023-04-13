@@ -1,15 +1,23 @@
 import { Routes, Route } from 'react-router-dom';
 
-import AllChampions from './features/champions/AllChampions';
 import Layout from './components/Layout';
+
+import AppRoutes from './routes'
 
 function App() {
 
   return (
     <Routes>
       <Route element={<Layout/>}>
-        <Route path="/" element={<AllChampions />}/>
-        {/* ADICIONAR AQUI AS NOVAS ROUTES */}
+          {
+            AppRoutes.map((route) => (
+              <Route
+                key={route.key}
+                path={route.path}
+                element={<route.component />}
+              />
+            ))
+          }
       </Route>
     </Routes>
   )
