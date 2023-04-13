@@ -1,4 +1,5 @@
 import { useGetAllChampsQuery } from "./logic/champsApiSlice"
+import SpinningLoader from "../../components/loader"
 
 const AllChampions = () => {
   const {
@@ -8,13 +9,14 @@ const AllChampions = () => {
     error,
     isSuccess
   } = useGetAllChampsQuery('allChampsQuery')
-  
+
+
   let content
   if(isError) {
     console.log('ERRO: ', error)
     content = <h1>Erro</h1>
   } else if(isLoading) {
-    content = <h1>Loading... </h1>
+    content = <SpinningLoader />
   } else if(isSuccess) {
     console.log('DATA: ', data)
     content = <h1>Sucesso</h1>

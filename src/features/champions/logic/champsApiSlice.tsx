@@ -12,10 +12,19 @@ const champsApiSlice = lolAPI.injectEndpoints({
                 ...data.map((item: any) => ({ type: 'Album', id: item.id }))
             ]
         }),
-       
+        getChamp: builder.query({
+            query: () => 'champion/Aatrox.json',
+            transformResponse: (response: any) => {
+                return Object.values(response.data)
+            },
+            providesTags: (data: any) => [
+                { type: 'Champs', id: data.id },
+            ]
+        }),
     })
 })
 
 export const {
-    useGetAllChampsQuery
+    useGetAllChampsQuery,
+    useGetChampQuery
 } = champsApiSlice
