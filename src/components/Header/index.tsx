@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 import { actions } from '../../store/store'
 import theme from '../../ui/theme'
@@ -12,28 +13,48 @@ const Header = () => {
   const dispatch = useDispatch()
   const { setCurrentTab } = actions.Header
   const { currentTab } = useSelector((state: any) => state.Header)
+  const location = useLocation()
+
+  useEffect(() => {
+    switch(location.pathname) {
+      case '/champions':
+        dispatch(setCurrentTab('champions'))
+        break;
+      case '/items':
+        dispatch(setCurrentTab('items'))
+        break;
+      case '/runes':
+        dispatch(setCurrentTab('runes'))
+        break;
+      case '/lore':
+        dispatch(setCurrentTab('lore'))
+        break;
+      default:
+        dispatch(setCurrentTab(''))
+    }
+  }, [])
 
   return (
     <HeaderWrapper>
       <LogoBox>
-        <LogoHeading>Our Logo</LogoHeading>
+        <LogoHeading to="/">Our Logo</LogoHeading>
       </LogoBox>
       <NavLinks>
         <LinkWrapper>
-          <NavLink to="" onClick={() => dispatch(setCurrentTab('Champions'))}>Champions</NavLink>
-          { currentTab === 'Champions' && <Indicator/> }
+          <NavLink to="/champions" onClick={() => dispatch(setCurrentTab('champions'))}>Champions</NavLink>
+          { currentTab === 'champions' && <Indicator/> }
         </LinkWrapper>
         <LinkWrapper>
-          <NavLink to="" onClick={() => dispatch(setCurrentTab('Items'))}>Items</NavLink>
-          { currentTab === 'Items' && <Indicator/> }
+          <NavLink to="" onClick={() => dispatch(setCurrentTab('items'))}>Items</NavLink>
+          { currentTab === 'items' && <Indicator/> }
         </LinkWrapper>
         <LinkWrapper>
-          <NavLink to="" onClick={() => dispatch(setCurrentTab('Runes'))}>Runes</NavLink>
-          { currentTab === 'Runes' && <Indicator/> }
+          <NavLink to="" onClick={() => dispatch(setCurrentTab('runes'))}>Runes</NavLink>
+          { currentTab === 'runes' && <Indicator/> }
         </LinkWrapper>
         <LinkWrapper>
-          <NavLink to="" onClick={() => dispatch(setCurrentTab('Lore'))}>Lore</NavLink>
-          { currentTab === 'Lore' && <Indicator/> }
+          <NavLink to="" onClick={() => dispatch(setCurrentTab('lore'))}>Lore</NavLink>
+          { currentTab === 'lore' && <Indicator/> }
         </LinkWrapper>
       </NavLinks>
 
@@ -75,9 +96,9 @@ const NavLink = styled(Link)`
     color: ${theme().gold3Color};
   }
 `
-
 const LinkWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  min-height: 35px;
 `
